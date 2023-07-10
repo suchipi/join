@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
-set -ex
 
-PROGRAM_NAME="@join"
-PROGRAM_SOURCE="src/join.js"
+git submodule init
+git submodule update --recursive
 
-if [ ! -e 'meta/quickjs' ]; then
-  meta/scripts/clone-quickjs.sh
-fi
+# Builds for current platform
+./meta/qjsbundle/qjsbundle src/join.js bin/@join
 
-# build quickjs
-if [[ "$SKIP_QJS" == "" ]]; then
-  pushd meta/quickjs > /dev/null
-  meta/build.sh
-  popd > /dev/null
-fi
+# Builds for all platforms
+./meta/qjsbundle/qjsbundle --mode docker src/join.js bin/[PLATFORM]/@join
 
-mkdir -p bin
-
-cat meta/quickjs/build/bin/qjsbootstrap "$PROGRAM_SOURCE" > "bin/$PROGRAM_NAME"
-chmod +x "bin/$PROGRAM_NAME"
+# Create .tar.gz archives for each platform
+./meta/scripts/assemble-tgz.sh

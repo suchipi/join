@@ -12,13 +12,17 @@ cd meta/tgz-release
 rm -rf ./*
 
 for TARGET in \
-  darwin-x86_64 \
-  linux-amd64 \
-  windows-x86_64 \
-  darwin-arm64 \
-  linux-aarch64 \
+  aarch64-apple-darwin \
+  aarch64-unknown-linux-gnu \
+  aarch64-unknown-linux-musl \
+  aarch64-unknown-linux-static \
+  x86_64-apple-darwin \
+  x86_64-pc-windows-static \
+  x86_64-unknown-linux-gnu \
+  x86_64-unknown-linux-musl \
+  x86_64-unknown-linux-static \
 ; do
-  if [[ $TARGET = win* ]]; then
+  if [[ $TARGET = *windows* ]]; then
     EXE=".exe"
   else
     EXE=""

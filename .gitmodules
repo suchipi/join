@@ -1,0 +1,3 @@
+[submodule "meta/qjsbundle"]
+	path = meta/qjsbundle
+	url = https://github.com/suchipi/qjsbundle
